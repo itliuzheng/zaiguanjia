@@ -1,4 +1,4 @@
-import {constantRouterMap,asyncRouterMap_enterprise,asyncRouterMap_financial} from "@/router";
+import {constantRouterMap,asyncRouterMap_enterprise} from "@/router";
 import store from '@/store'
 import {removeToken} from "@/utils/token";
 import router from '@/router'
@@ -56,31 +56,7 @@ const permission = {
   actions:{
     GenerateRoutes({commit},data){
       return new Promise(resolve => {
-        let accessedRouters;
-        let userType = store.getters.userType;
-
-        let asyncRouterMap;
-
-        switch (userType) {
-          case 1:
-              removeToken();
-              router.go(0);
-                break;
-          case 2 :
-            //融资企业
-            asyncRouterMap = asyncRouterMap_enterprise;
-                break;
-          case 3 :
-            //金融机构
-            asyncRouterMap = asyncRouterMap_financial;
-                break;
-          default:
-            alert('账号为黑名单用户');
-            break;
-        }
-
-        commit('SET_ROUTERS',asyncRouterMap);
-
+        commit('SET_ROUTERS',asyncRouterMap_enterprise);
         resolve()
       })
     }
