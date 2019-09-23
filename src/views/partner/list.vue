@@ -3,40 +3,46 @@
 
     <div class="top-main">
         <el-form :inline="true" ref="management" :model="management" label-position="left">
-          <el-form-item label="合作商">
-            <el-input v-model="management.companyName"></el-input>
+          <el-form-item label="合作商" >
+            <el-input  style="width: 130px;" v-model="management.loginName"></el-input>
           </el-form-item>
 
           <el-form-item label="合作类型" class="width-3">
 
-            <el-select v-model="management.status" placeholder="请选择">
-              <el-option label="全部"   :value="0"></el-option>
+            <el-select v-model="management.type" placeholder="请选择" style="width: 100px;">
+              <el-option label="全部"   :value="-1"></el-option>
               <el-option label="委单方" :value="1"></el-option>
               <el-option label="催收方" :value="2"></el-option>
               <el-option label="其他"   :value="3"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="合作商类别:" class="width-3">
-            <el-select v-model="management.statuses" placeholder="请选择"  style="width:100px">
-              <el-option label="全部" :value="0"></el-option>
-              <el-option label="个人" :value="3"></el-option>
-              <el-option label="其他" :value="2"></el-option>
-              <el-option label="企业" :value="4"></el-option>
+            <el-select v-model="management.category" placeholder="请选择"  style="width:100px">
+              <el-option label="全部" :value="-1"></el-option>
+              <el-option label="企业" :value="1"></el-option>
+              <el-option label="个人" :value="2"></el-option>
+              <el-option label="其他" :value="3"></el-option>
             </el-select>
           </el-form-item>
 
           <el-form-item label="创建时间:" >
-            <el-date-picker  style="width: 190px;"
-                             v-model="management.createDate"
-                             placeholder="请输入申请时间"
-                             format="yyyy 年 MM 月 dd 日"
-                             value-format="yyyy-MM-dd"></el-date-picker>
+            <el-date-picker
+              format="yyyy 年 MM 月 dd 日" value-format="yyyy-MM-dd"
+              v-model="management.createDate"
+              type="daterange"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期">
+            </el-date-picker>
           </el-form-item>
           <div class="inquire">
-            <el-button class="el-button el-button--primary" @click="list">查询</el-button>
+            <el-button class="el-button el-button--primary" @click="inquireList">查询</el-button>
             <el-button class="el-button " @click="inquireClear">清空</el-button>
           </div>
         </el-form>
+    </div>
+    <div class="t-r">
+      <el-button class="el-button el-button--primary" @click="addEdit">添加合作商</el-button>
     </div>
     <div class="content">
       <el-table
@@ -49,49 +55,55 @@
           type="index"
         ></el-table-column>
         <el-table-column
-          label="起始日"
-          prop="creditStartDate">
+          label="创建时间"
+          width="140px"
+          prop="createDate">
         </el-table-column>
         <el-table-column
-          label="到期日"
-          prop="creditEndDate">
+          label="合作商名称"
+          prop="loginName">
         </el-table-column>
         <el-table-column
-          label="总额度(元)"
-          prop="creditAccount">
-        </el-table-column>
-        <el-table-column
-          label="已使用额度(元)"
-          prop="usedAccount">
-        </el-table-column>
-        <el-table-column
-          label="在途冻结额度(元)"
-          prop="frozeningAccount">
-        </el-table-column>
-        <el-table-column
-          label="冻结额度(元)"
-          prop="frozenAccount">
-        </el-table-column>
-        <el-table-column
-          label="可用额度(元)"
-          prop="availableAccount">
-        </el-table-column>
-        <el-table-column
-          label="状态">
+          label="合作商类别">
           <template slot-scope="scope">
-            <p  v-if="scope.row.status == 1">正常</p>
-            <p  v-else-if="scope.row.status == 2">终止</p>
-            <p  v-else-if="scope.row.status == 3">到期</p>
+            <p  v-if="scope.row.type == 0">后台用户</p>
+            <p  v-else-if="scope.row.type == 1">委单方</p>
+            <p  v-else-if="scope.row.type == 2">催收方</p>
+            <p  v-else-if="scope.row.type == 3">其他</p>
           </template>
         </el-table-column>
-        <!--<el-table-column-->
-          <!--label="操作">-->
-          <!--<template slot-scope="scope">-->
-            <!--<div class="blue inlineBlock">-->
-              <!--<p @click="viewRecord(scope.row)">查看记录</p>-->
-            <!--</div>-->
-          <!--</template>-->
-        <!--</el-table-column>-->
+        <el-table-column
+          label="合作类型">
+          <template slot-scope="scope">
+            <p  v-if="scope.row.category == 1">企业</p>
+            <p  v-else-if="scope.row.category == 2">个人</p>
+            <p  v-else-if="scope.row.category == 3">其他</p>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="备注信息"
+          prop="remark">
+        </el-table-column>
+        <el-table-column
+          label="账号状态">
+          <template slot-scope="scope">
+            <p  v-if="scope.row.status == 0">禁用</p>
+            <p  v-else-if="scope.row.status == 1">启用</p>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="来源渠道"
+          prop="sources">
+        </el-table-column>
+        <el-table-column
+          label="操作">
+          <template slot-scope="scope">
+            <div class="blue inlineBlock">
+              <p @click="showEdit(scope.row)">编辑</p>
+              <p @click="deleteClick(scope.row)">删除</p>
+            </div>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
 
@@ -105,7 +117,7 @@
       </el-pagination>
     </div>
 
-    <add-edit  :data="dialogForm"  :api="api" v-if="dialogFormVisible" @is_show="is_show"></add-edit>
+    <add-edit  :data="dialogForm" :api="api" v-if="dialogFormVisible" @is_show="is_show"></add-edit>
   </div>
 </template>
 <script>
@@ -118,7 +130,7 @@
     },
     data(){
       return {
-        api:'/corporate/financing-company-credit-account/',
+        api:'/cooperate/',
         page:{
           "current":1,
           "pageSize":10,
@@ -128,16 +140,16 @@
           "total":0
         },
         management:{
-          status:'',
-          companyType:'',
-          companyName:'',
+          type:'',
+          loginName:'',
+          category:'',
           createDate:'',
+          beginDate:'',
+          endDate:'',
         },
         loading:false,
         dialogFormVisible:false,
         dialogForm:null,
-        listFormVisible:false,
-        listForm:null,
       }
     },
     beforeMount:function(){
@@ -145,28 +157,20 @@
       this.ajaxPage(1);
     },
     methods:{
-      freezeQuota(row){
-      //1-变更额度, 2-解冻额度,3-冻结额度,4-终止额度,5-恢复额度",
-        this.dialogForm = row;
-        this.dialogForm.title = '冻结额度';
-        this.dialogForm.itemTitle = '冻结量';
+      addEdit(){
+        this.dialogForm = {};
+        this.dialogForm.types = 'add';
         this.dialogFormVisible = true;
       },
-      ThawingQuota(row){
+      showEdit(row){
         this.dialogForm = row;
-        this.dialogForm.title = '解冻额度';
-        this.dialogForm.itemTitle = '解冻量';
-        this.dialogFormVisible = true;
-      },
-      ChangeQuota(row){
-        this.dialogForm = row;
-        this.dialogForm.title = '额度变更';
-        this.dialogForm.itemTitle = '变更额度';
+        this.dialogForm.types = 'update';
         this.dialogFormVisible = true;
       },
       deleteClick(row){
         let _this = this;
-        this.$confirm('确定终止额度?', '提示', {
+        let text = 1?'该合作商已关在关联委单数据，是否确认删除？':'是否删除';
+        this.$confirm(text, '提示', {
           confirmButtonText: '是',
           cancelButtonText: '否',
           type: 'warning'
@@ -181,62 +185,46 @@
           });
         });
       },
-      restoreClick(row){
-        let _this = this;
-        this.$confirm('确定恢复额度?', '提示', {
-          confirmButtonText: '是',
-          cancelButtonText: '否',
-          type: 'warning'
-        }).then(() => {
-          _this.modifyStatus(row.id,5);
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '取消恢复'
-          });
-        });
-      },
       modifyStatus(id,status){
         let _this = this;
         let url = `${_this.api}changeAccount`;
 
-        new Promise((resolve,reject) => {
-          ajax({
-            url:url,
-            method:'post',
-            data:{
-              id:id,
-              status:status
-            }
-          }).then(function (res) {
-            let data = res.data;
-            if(data.code == 1){
-              if(status == 5){
-                _this.$message.success('已恢复');
-              }else{
-                _this.$message.success('已终止');
-              }
-              _this.ajaxPage(1);
-            }else{
-              _this.$message.error(data.msg);
-            }
-
-          }).catch(error => {
-            reject(error)
-          })
-         })
+        // new Promise((resolve,reject) => {
+        //   ajax({
+        //     url:url,
+        //     method:'post',
+        //     data:{
+        //       id:id,
+        //       status:status
+        //     }
+        //   }).then(function (res) {
+        //     let data = res.data;
+        //     if(data.code == 1){
+        //       if(status == 5){
+        //         _this.$message.success('已恢复');
+        //       }else{
+        //         _this.$message.success('已终止');
+        //       }
+        //       _this.ajaxPage(1);
+        //     }else{
+        //       _this.$message.error(data.msg);
+        //     }
+        //
+        //   }).catch(error => {
+        //     reject(error)
+        //   })
+        //  })
       },
-      viewRecord(row){
-        this.listForm = row;
-        this.listFormVisible = true;
-      },
-      inquire(){
+      inquireList(){
         this.ajaxPage(1);
       },
       inquireClear(){
-        this.management.companyType = '';
-        this.management.companyName = '';
-        this.management.status = '';
+        this.management.loginName = '';
+        this.management.type = '';
+        this.management.category = '';
+        this.management.createDate = '';
+        this.management.beginDate = '';
+        this.management.endDate = '';
         this.ajaxPage(1);
       },
       ajaxPage:function (page) {
@@ -244,10 +232,18 @@
         var _this = this;
         _this.loading = true;
 
+        if(_this.management.createDate != 0){
+          _this.management.beginDate = _this.management.createDate[0];
+          _this.management.endDate = _this.management.createDate[1];
+        }
+
+
         let date = {
-              companyType:_this.management.companyType,
-              companyName:_this.management.companyName,
-              status:_this.management.status,
+              loginName:_this.management.loginName,
+              type:_this.management.type,
+              category:_this.management.category,
+              beginDate:_this.management.beginDate,
+              endDate:_this.management.endDate,
               pageNum:page
         };
 
@@ -277,9 +273,6 @@
         if(!data){
           this.ajaxPage(1);
         }
-      },
-      is_list_show(data){
-        this.listFormVisible = false;
       },
       handleCurrentChange(val) {
         this.ajaxPage(val);
@@ -322,9 +315,9 @@
       display: inline-block;
     }
   }
-  .svg-icon{
-    font-size: 22px;
-    cursor: pointer;
+  .t-r{
+    text-align: left;
+    margin-bottom: 20px;
   }
   .blue{
     p{

@@ -6,5 +6,5 @@ module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   srconfig : '"test"',
   // BASE_API:'"http://119.147.171.108/storagePledgeManage"'
-  BASE_API:'"http://119.147.171.111:81/logisticsFinance"'
+  BASE_API:'"http://192.168.11.121"'
 })

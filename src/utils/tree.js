@@ -56,7 +56,7 @@ export function reconstruction(sNodes){
 
     for(let i = 0;i< sNodes.length;i++){
       for(let name in sNodes[i]){
-        sNodes[i].label = sNodes[i].name+'-----'+sNodes[i].targetUrl
+        sNodes[i].label = sNodes[i].name+'-----'+sNodes[i].href
       }
     }
 

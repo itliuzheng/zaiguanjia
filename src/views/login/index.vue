@@ -8,7 +8,7 @@
       label-position="left"
       :rules="loginRules">
 
-      <div class="fl form-left">
+      <div class="">
         <div class="title-container">
           <h3>{{lang.title}}</h3>
         </div>
@@ -22,7 +22,6 @@
             type="text"
             prefix-icon="el-icon-user"
             auto-complete="on">
-             <!--<i slot="prefix" class="el-icon-user" style="left:20px;"></i>-->
           </el-input>
         </el-form-item>
         <el-form-item class="width-246"  prop="password">
@@ -35,19 +34,15 @@
             auto-complete="on"
             prefix-icon="el-icon-lock"
             @keyup.enter.native="handleLogin">
-             <!--<i slot="prefix" class="el-input__icon el-icon-lock"></i>-->
           </el-input>
         </el-form-item>
         <p class="error" v-if="error">用户名或密码错误</p>
         <el-button class="login-button" :loading="loading" type="primary" @click.native.prevent="handleLogin" >{{lang.logIn}}</el-button>
-        <div class="sub-active">
-          <div class="fl" @click="goActivationPage">邀请码激活</div>
-          <div class="fr" @click="forget">忘记密码</div>
-        </div>
+
       </div>
-      <div class="fl image-left">
-        <img :src="require('@/images/login_bj.png')" alt="">
-      </div>
+      <!--<div class="fl image-left">-->
+        <!--<img :src="require('@/images/login_bj.png')" alt="">-->
+      <!--</div>-->
 
 
     </el-form>
@@ -105,12 +100,6 @@
       }
     },
     methods:{
-      goActivationPage(){
-        this.$router.push({path:'/activationPage'});
-      },
-      forget(){
-        this.$router.push({path:'/forget'});
-      },
       handleLogin(){
         var _this = this;
         this.$refs.loginForm.validate(valid => {
@@ -155,20 +144,11 @@ $light_gray:#eee;
 
   }
 
-  .form-left{
-    width: 500px;
-  }
-  .image-left{
-    img{
-      width: 100%;
-      height: 620px;
-    }
-  }
   .login-container{
     background: -webkit-linear-gradient(160deg, #496fbd 49%, #8caada 51%);
-    padding-top: 230px;
+    padding-top: 130px;
     height: 100%;
-    min-height: 1080px;
+    min-height: 680px;
     .logo{
       width: 260px;
       height: 100px;
@@ -182,12 +162,12 @@ $light_gray:#eee;
       font-size: 20px;
       font-weight: 500;
       line-height: 1;
-      padding-top: 150px;
+      padding-top: 100px;
       margin-bottom: 60px;
     }
     .login-form{
       width: 1000px;
-      height: 620px;
+      height: 450px;
       margin: 0 auto;
       background:#fff;
       -webkit-border-radius: 8px;
@@ -209,16 +189,6 @@ $light_gray:#eee;
   .login-button{
     width: 240px;
     margin-top: 6px;
-  }
-  .sub-active{
-    color: #333333;
-    font-size: 14px;
-    margin: 10px auto 0;
-    cursor: pointer;
-    width: 240px;
-    .fr{
-      color: #de2b2b;
-    }
   }
 
 </style>

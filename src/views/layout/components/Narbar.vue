@@ -28,15 +28,8 @@
     data(){
       let username =  this.$store.getters.name;
 
-      let title = this.$store.getters.userType;
-
-      if(title == 2){
-        title = '融资企业端';
-      }else if(title == 3){
-        title = "金融机构端"
-      }
       return {
-        title:title,
+        title:'资产管理后台',
         username:username,
         processd:process.env.srconfig == 'pro'?'生产环境':'测试环境',
         homeIndex:'',
@@ -140,18 +133,18 @@
       -ms-transform: translate(0, -50%);
       -o-transform: translate(0, -50%);
       transform: translate(0, -50%);
-      background: url("~@/images/layout/yonghu.png") no-repeat;
+      background: url("~@/images/layout_admin/yonghu.png") no-repeat;
       -webkit-background-size: 100%;
       background-size: 100%;
     }
   }
   .go-home:before{
-    background: url("~@/images/layout/shouye.png") no-repeat;
+    background: url("~@/images/layout_admin/shouye.png") no-repeat;
     -webkit-background-size: 100%;
     background-size: 100%;
   }
   .go-out:before{
-    background: url("~@/images/layout/tuichu.png") no-repeat;
+    background: url("~@/images/layout_admin/tuichu.png") no-repeat;
     -webkit-background-size: 100%;
     background-size: 100%;
 

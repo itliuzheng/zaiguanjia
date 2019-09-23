@@ -35,8 +35,8 @@ export default {
       if (first && first.name.trim().toLocaleLowerCase() !== 'home'.toLocaleLowerCase()) {
         matched = [{ path: '/', meta: { title: '首页' }}].concat(matched)
       }else{
-        // matched = [{ path: '/', meta: { title: '工作台' }}]
-        matched = []
+        matched = [{ path: '/', meta: { title: '合作商列表' }}]
+        // matched = []
       }
       this.levelList = matched
     }

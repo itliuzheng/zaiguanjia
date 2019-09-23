@@ -1,58 +1,76 @@
 <template>
   <div class="main">
-    <el-dialog title="可质押物明细"
+    <el-dialog title="产品信息"
                :visible.sync="dialogFormVisible"
                 @open="open"
                 @close="close"
-               class="repeatArray"
+               class="add-form-box"
               center>
+      <el-form :model="dialogForm" ref="dialogForms"
+               label-position="right"
+               label-width="160px">
+        <el-form-item label="合作商名称:"
+            prop="loginName"
+            :rules="{
+              required: true, message: '此项不能为空', trigger: 'blur'
+            }">
+          <el-input  maxlength="50" v-model="dialogForm.loginName" ></el-input>
+        </el-form-item>
+        <el-form-item label="合作商密码"
+            prop="password"
+            :rules="{
+              required: true, message: '此项不能为空', trigger: 'change'
+            }">
+          <el-input maxlength="50" v-model="dialogForm.password" ></el-input>
+        </el-form-item>
+        <el-form-item label="合作商类别:"
+            prop="category"
+            :rules="{
+              required: true, message: '此项不能为空', trigger: 'change'
+            }">
 
-      <div>
-        <el-table
-          class="history-table"
-        :data="page.records"
-          height="180"
-          @selection-change="handleSelectionChange"
-        width="100%">
-          <el-table-column prop="name" label="商品名称">
-          </el-table-column>
-          <el-table-column prop="varietySpecification" label="品种规格">
-          </el-table-column>
-          <el-table-column prop="warehouse" label="存货仓库">
-          </el-table-column>
-          <el-table-column prop="avaiable" label="可质押数量">
-          </el-table-column>
-          <el-table-column  label="是否质押">
-            <template slot-scope="scope">
-              <el-checkbox v-model="scope.row.checked"></el-checkbox>
-            </template>
-          </el-table-column>
-          <el-table-column  label="输入质押量">
-            <template slot-scope="scope">
-              <el-input v-model.number="scope.row.number"></el-input>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="page" v-if="page.total != 0" style="text-align: center;">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="page.current"
-            :page-size="page.pageSize"
-            layout="total, prev,pager, next, jumper"
-            :total="page.total">
-          </el-pagination>
-        </div>
-      </div>
+          <el-select v-model="dialogForm.category"  placeholder="请选择">
+            <el-option :label="list.label" :value="list.value" v-for="(list,index) in category" :key="index"></el-option>
+          </el-select>
 
+        </el-form-item>
+        <el-form-item label="合作类型:"
+            prop="type"
+            :rules="{
+              required: true, message: '此项不能为空', trigger: 'change'
+            }">
+          <el-select v-model="dialogForm.type"  placeholder="请选择">
+            <el-option :label="list.label" :value="list.value" v-for="(list,index) in typeList" :key="index"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="账户状态:"
+            prop="status"
+            :rules="{
+              required: true, message: '此项不能为空', trigger: 'change'
+            }" >
+          <el-radio v-model="dialogForm.status" :label="1">启用</el-radio>
+          <el-radio v-model="dialogForm.status" :label="0">禁用</el-radio>
+        </el-form-item>
+        <el-form-item label="备注:" class="input-textarea">
+            <el-input type="textarea"
+                      maxlength="200"
+                      :autosize="{ minRows: 2, maxRows: 4}"
+                      v-model="dialogForm.remark" ></el-input>
+            <p>你还可以输入<span>{{200 - dialogForm.remark.length}}</span>字</p>
+        </el-form-item>
+      </el-form>
       <div slot="footer" class="dialog-footer">
-          <el-button @click="postForm" type="primary" :loading="loadding">提 交</el-button>
-          <el-button @click="dialogFormVisible = false">关 闭</el-button>
+          <el-button type="primary" @click="postForm">确 定</el-button>
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
+  import store from '@/store'
   import ajax from '@/utils/ajax'
+  import {unique} from '@/utils/index'
+
 
   export default {
     props:['api','data'],
@@ -60,99 +78,101 @@
       let id = this.data.id;
       return {
         dialogFormVisible:true,
-        id:id,
-        page:{
-          "current":1,
-          "pageSize":10,
-          "pages":1,
-          "records":[
-          ],
-          "total":0
+        dialogForm: {
+          id:id,
+          remark:''
         },
-        multipleSelection:null,
-        loadding:false,
-        date:[]
+        formLabelWidth: '180px',
+        financeOrgList:[],
+        productList:[],
+        typeList:[
+              {
+                label:'后台用户',
+                value:0
+              },
+              {
+                label:'委单方',
+                value:1
+              },
+              {
+                label:'催收方',
+                value:2
+              },
+              {
+                label:'其他',
+                value:3
+              },
+        ],
+        category:[
+              {
+                label:'企业',
+                value:1
+              },
+              {
+                label:'个人',
+                value:2
+              },
+              {
+                label:'其他',
+                value:3
+              },
+        ],
       }
     },
     beforeMount(){
-      this.getInit(this.id);
+      let id = this.data.id;
+      if(id){
+        this.dialogForm = this.data;
+      }
+
     },
     methods: {
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      },
-      getInit(id){
-        var _this = this;
-        let url = `/warehouse/simulation-cargo/page`;
-        new Promise((resolve,reject) => {
-          ajax({
-            url:url,
-            method:'get',
-          }).then(function (res) {
-            let data = res.data;
-            if(data.code == 1){
-              if(data.data){
-                _this.page = data.data;
-
-              }
-            }else{
-              _this.$message.error(data.msg);
-            }
-
-          }).catch(error => {
-            reject(error)
-          })
-         })
-      },
-      postForm(id){
-        var _this = this;
-        let url = `${this.api}batch-add`;
-
-        let array = [];
-
-         _this.page.records.forEach((value)=>{
-           if(value.checked){
-             array.push({
-               id:value.id,
-               count:value.number
-             });
-           }
-         })
-
-        this.loadding = true;
-
-        new Promise((resolve,reject) => {
-          ajax({
-            url:url,
-            method:'POST',
-            data:array
-          }).then(function (res) {
-            let data = res.data;
-            if(data.code == 1){
-              if(data.data){
-
-                _this.date = data.data;
-                _this.dialogFormVisible = false;
-
-              }
-            }else{
-              _this.$message.error(data.msg);
-            }
-            _this.loadding = false;
-
-          }).catch(error => {
-            reject(error)
-          })
-         })
-      },
       open(){
 
       },
       close(){
-        this.$emit('is_show',this.date)
+        this.$refs.dialogForms.resetFields();
+        this.$emit('is_show',false)
       },
-      handleCurrentChange(val) {
-        this.getInit(this.id,val);
+      postForm(){
+        var _this = this;
+
+        this.$refs.dialogForms.validate((value)=>{
+          if(value){
+
+            let url = `${_this.api}${_this.data.types}`;
+
+            new Promise((resolve,reject) => {
+              ajax({
+                url:url,
+                method:'post',
+                data:_this.dialogForm
+              }).then(function (res) {
+                let data = res.data;
+                if(data.code == 1){
+                  if(data.data){
+
+                    if(_this.data.types == 'add'){
+                      _this.$message.success('添加成功');
+                    }else{
+                      _this.$message.success('修改成功');
+                    }
+
+                    _this.dialogFormVisible = false;
+
+                  }
+                }else{
+                  _this.$message.error(data.msg);
+                }
+
+              }).catch(error => {
+                reject(error)
+              })
+             })
+
+
+          }
+        })
       },
     },
     mounted(){
@@ -161,23 +181,34 @@
 </script>
 <style lang="scss">
 
+  .add-form-box{
+    .el-dialog__body{
+      padding-right: 100px;
+    }
+    .el-select{
+      width: 100%;
+    }
+
+    .input-textarea{
+      p{
+        height: 0;
+        line-height: 2;
+        text-align: right;
+        font-size: 12px;
+        span{
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+
 </style>
 <style scoped lang="scss">
   $blue : #409EFF;
   .blue{
     color: $blue;
   }
-  .zd-icon{
-    font-size: 24px;
-    color: #f95353;
-    cursor: pointer;
-  }
-  .zd-icon-blue{
-    color: #57a3f3;
-  }
-  .svg-box{
-    display: inline-block;
-    vertical-align: sub;
-  }
-</style>
 
+</style>

@@ -1,4 +1,4 @@
-import {constantRouterMap,asyncRouterMap_enterprise} from "@/router";
+import {asyncRouterMap,constantRouterMap} from "@/router";
 import store from '@/store'
 import {removeToken} from "@/utils/token";
 import router from '@/router'
@@ -12,7 +12,7 @@ function hasPermission(roles,route) {
   if(route.meta && route.meta.roles) {
     let filter = false;
     roles.forEach((role) => {
-      if (role.targetUrl == route.meta.roles) {filter = true;}
+      if (role.href == route.meta.roles) {filter = true;}
     })
     return filter;
   }else{
@@ -56,7 +56,10 @@ const permission = {
   actions:{
     GenerateRoutes({commit},data){
       return new Promise(resolve => {
-        commit('SET_ROUTERS',asyncRouterMap_enterprise);
+        let accessedRouters;
+        accessedRouters = filterAsynscRouter(asyncRouterMap,data.roles);
+
+        commit('SET_ROUTERS',accessedRouters);
         resolve()
       })
     }

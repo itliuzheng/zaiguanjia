@@ -6,32 +6,13 @@ import Router from 'vue-router'
 // import undefinedfail from '@/components/error/undefinedfail'
 
 import Layout from '@/views/layout/layout'
+const layout = () => import('@/views/layout_pc/layout');
 
 Vue.use(Router)
 
 
 
 export const constantRouterMap = [
-  //首页
-  {
-    path: '/',
-    component: Layout,
-    name: 'home',
-    redirect: '/home',
-    // hidden:true,
-    meta: {
-      title: '工作台',
-    },
-    children: [
-      {
-        path: 'home',
-        component: resolve => require(['@/views/home/index'],resolve),
-        name: 'home',
-        alwaysShow: true, // will always show the root menu
-        meta: { title: '工作台', noCache: true },
-      },
-    ]
-  },
   {
     path: '/redirect',
     component: Layout,
@@ -51,57 +32,35 @@ export const constantRouterMap = [
     component: resolve => require(['@/views/login/index'],resolve),
     hidden: true
   },
+  //债管家
   {
-    path: '/activationPage',
-    // component: () => import('@/views/login/index'),
-    component: resolve => require(['@/views/login/activation_page'],resolve),
-    hidden: true
-  },
-  {
-    path: '/forget',
-    // component: () => import('@/views/login/index'),
-    component: resolve => require(['@/views/login/forget'],resolve),
-    hidden: true
-  },
-  {
-    path: '/password',
-    component: resolve => require(['@/views/login/password'],resolve),
-    hidden: true
-  },
-  {
-    path: '/mobile',
-    component: resolve => require(['@/views/login/mobile'],resolve),
-    hidden: true
+    path: '/',
+    component: layout,
+    name: 'index',
+    redirect: '/index',
+    alwaysShow: true, // will always show the root menu
+    hidden:true,
+    meta: {
+      title: '债管家',
+      noCache: true ,
+    },
+    children: [
+      {
+        path: '',
+        component: resolve => require(['@/views/index/index'],resolve),
+        name: 'index',
+        // alwaysShow: true, // will always show the root menu
+        meta: {
+          title: '首页', noCache: true,
+        },
+      },
+    ]
   },
   // {
   //   path: '*',
   //   component: () => import('@/views/errorPage/404'),
   //   hidden: true
   // }
-  //合作商管理
-  {
-    path: '/partner',
-    component: Layout,
-    redirect: '/partner/list',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '合作商管理',
-      noCache: true ,
-      roles:'/partner'
-    },
-    children: [
-      {
-        path: 'list',
-        component: resolve => require(['@/views/partner/list'],resolve),
-        name: 'partner-list',
-        // alwaysShow: true, // will always show the root menu
-        meta: {
-          title: '合作商列表', noCache: true,
-          roles:'/partner/list'
-        },
-      },
-    ]
-  },
 
 ]
 
@@ -112,41 +71,98 @@ export default new Router({
   routes: constantRouterMap
 })
 
-export const asyncRouterMap_enterprise = [
-  // 用户设置
+export const asyncRouterMap = [
+  //合作商管理
   {
-    path: '/user',
+    path: '/_admin',
     component: Layout,
-    redirect: '/user/data',
+    name: 'home',
+    redirect: '/_admin',
     alwaysShow: true, // will always show the root menu
     meta: {
-      title: '用户设置',
+      title: '合作商管理',
       noCache: true ,
-      roles:'/user'
+      roles:'/'
     },
     children: [
       {
-        path: 'data',
-        component: resolve => require(['@/views/user/dataIndex'],resolve),
-        alwaysShow: false, // will always show the root menu
+        path: '',
+        component: resolve => require(['@/views/partner/list'],resolve),
+        name: 'partner-list',
+        // alwaysShow: true, // will always show the root menu
         meta: {
-          title: '用户资料', noCache: true,
-          roles:'/user/data'
+          title: '合作商列表', noCache: true,
+          roles:'/home'
         },
-        children:[
-          {
-            path: '',
-            component: resolve => require(['@/views/user/data'],resolve),
-            name: 'user_data',
-            // alwaysShow: false, // will always show the root menu
-            hidden:false,
-            meta: {
-              title: '信息修改', noCache: true,
-              roles:'/user/data/index'
-            },
-          },
-        ]
       },
+    ]
+  },
+  //委单管理
+  {
+    path: '/_admin/bill',
+    component: Layout,
+    redirect: '/_admin/bill/list',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '委单管理',
+      noCache: true ,
+      roles:'/bill'
+    },
+    children: [
+      {
+        path: 'info',
+        component: resolve => require(['@/views/bill/info'],resolve),
+        name: 'bill-info',
+        // alwaysShow: true, // will always show the root menu
+        meta: {
+          title: '委单发布', noCache: true,
+          roles:'/bill/info'
+        },
+      },
+      {
+        path: 'list',
+        component: resolve => require(['@/views/bill/list'],resolve),
+        name: 'bill-list',
+        // alwaysShow: true, // will always show the root menu
+        meta: {
+          title: '委单列表', noCache: true,
+          roles:'/bill/list'
+        },
+      },
+      {
+        path: 'modify/:id',
+        component: resolve => require(['@/views/bill/info'],resolve),
+        name: 'bill-info-id',
+        hidden:true,
+        // alwaysShow: true, // will always show the root menu
+        meta: {
+          title: '委单发布', noCache: true,
+          roles:'/bill/info'
+        },
+      },
+    ]
+  },
+  // 系统管理
+  {
+    path: '/_admin/system',
+    component: Layout,
+    redirect: '/system/set',
+    alwaysShow: true, // will always show the root menu
+    meta: {
+      title: '系统管理',
+      noCache: true ,
+      roles:'/system'
+    },
+    children: [
+      {
+        path: 'set',
+        component: resolve => require(['@/views/system/set'],resolve),
+        name: 'set',
+        meta: {
+          title: '权限设置',
+          roles: '/system/set'
+        }
+      }
     ]
   },
 ]

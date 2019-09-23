@@ -3,7 +3,7 @@ import store from './store'
 import {getToken} from "@/utils/token";
 import { Message } from 'element-ui'
 
-const whiteList = ['/login','/activationPage','/forget'];
+const whiteList = ['/login'];
 
 // permission judge function
 // function hasPermission(roles, permissionRoles) {
@@ -34,7 +34,7 @@ router.beforeEach((to,from,next) =>{
           })
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
-            Message.error('Verification failed, please login again')
+            Message.error('Verification failed, please login again');
             next({ path: `/`})
           })
         })

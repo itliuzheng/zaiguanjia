@@ -18,7 +18,7 @@ export function getUserInfo() {
   // console.log(store.state.user.userType);
 
   return ajax({
-    url: '/user/resources?',
+    url: '/user/resources',
     method: 'get',
   })
 

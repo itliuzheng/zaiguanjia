@@ -68,7 +68,9 @@ const user = {
           if (response.data.code != 1) {
             reject('error')
           }
-          const data = response.data;
+          // const data = response.data;
+          const data = {data:[{path:'/'}]};
+
           //
           if (data.data && data.data.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.data);
