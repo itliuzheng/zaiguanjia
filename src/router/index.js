@@ -37,7 +37,7 @@ export const constantRouterMap = [
     path: '/',
     component: layout,
     name: 'index',
-    redirect: '/index',
+    redirect: '/',
     alwaysShow: true, // will always show the root menu
     hidden:true,
     meta: {
@@ -52,6 +52,72 @@ export const constantRouterMap = [
         // alwaysShow: true, // will always show the root menu
         meta: {
           title: '首页', noCache: true,
+        },
+      },
+    ]
+  },
+  {
+    path: '/introduction',
+    component: layout,
+    redirect: '/introduction/',
+    alwaysShow: true, // will always show the root menu
+    hidden:true,
+    meta: {
+      title: '业务介绍',
+      noCache: true ,
+    },
+    children: [
+      {
+        path: '/',
+        component: resolve => require(['@/views/introduction/index'],resolve),
+        name: 'introduction',
+        // alwaysShow: true, // will always show the root menu
+        meta: {
+          title: '业务介绍', noCache: true,
+        },
+      },
+    ]
+  },
+  {
+    path: '/hall_list',
+    component: layout,
+    redirect: '/hall_list/',
+    alwaysShow: true, // will always show the root menu
+    hidden:true,
+    meta: {
+      title: '交易大厅',
+      noCache: true ,
+    },
+    children: [
+      {
+        path: '/',
+        component: resolve => require(['@/views/hall_list/index'],resolve),
+        name: 'hall_list',
+        // alwaysShow: true, // will always show the root menu
+        meta: {
+          title: '交易大厅', noCache: true,
+        },
+      },
+    ]
+  },
+  {
+    path: '/about',
+    component: layout,
+    redirect: '/about',
+    alwaysShow: true, // will always show the root menu
+    hidden:true,
+    meta: {
+      title: '关于我们',
+      noCache: true ,
+    },
+    children: [
+      {
+        path: '/',
+        component: resolve => require(['@/views/about/index'],resolve),
+        name: 'about',
+        // alwaysShow: true, // will always show the root menu
+        meta: {
+          title: '公司简介', noCache: true,
         },
       },
     ]

@@ -1,7 +1,26 @@
 <template>
   <div class="footer">
-    <div class="copyright">
-      <p>版权所有：北京泛鹏天地科技股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;京ICP备09005155号-1</p>
+    <div class="footer-content">
+      <div class="fl fo-left">
+        <div class="fo-about">
+          <router-link tag="a" :to="{name:'about'}">关于我们</router-link>
+          <span>|</span>
+          <router-link tag="a" :to="{name:'about',query:{name:'contact'}}">联系我们</router-link>
+        </div>
+        <div class="fo-copyright">
+          <p>Copyright 2019 北京债管家网络科技有限公司  |  京ICP备18473254号</p>
+        </div>
+      </div>
+      <div class="fr contact">
+        <div>
+          <span class="contact-left">咨询电话：010-00000000</span>
+          <span >工作时间：9:30 - 18:00(工作日)</span>
+        </div>
+        <div>
+          <span  class="contact-left">商务合作：XXXX@.com</span>
+          <span >公司地址：xxxxxxxxxxxxxxxxxx</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,23 +52,56 @@ export default {
 
   .footer{
     min-width: 1200px;
-    background: rgba(60,65,70,1);
+    background: #272c36;
     .footer-content{
-      min-height: 355px;
+      min-height: 246px;
       width: 1200px;
       margin: 0 auto;
-      padding-top: 44px;
+      padding-top: 95px;
       position: relative;
-      padding-bottom: 20px;
+      .fo-left{
+        margin-right: 74px;
+        text-align: left;
+      }
+      .fo-about{
+        color: #fff;
+        margin-bottom: 22px;
+        a{
+          color: #fff;
+          font-size: 18px;
+          margin-right: 13px;
+          display: inline-block;
+          line-height: 1;
+        }
+        span{
+          display: inline-block;
+          font-size: 18px;
+          margin-right: 13px;
+          vertical-align: top;
+          line-height: 1;
+        }
+      }
+      .fo-copyright{
+        color: #fff;
+        font-size: 18px;
+        line-height: 1;
+
+      }
     }
-    .copyright{
-      height: 100px;
-      background: #1c2327;
-      color: #6d6d6d;
-      font-size: 12px;
-      text-align: center;
-      line-height: 113px;
-      letter-spacing: 0.72px;
+    .contact{
+      color: #fff;
+      span{
+        display: inline-block;
+        text-align: left;
+        margin-bottom: 22px;
+        font-size: 18px;
+        line-height: 1;
+
+      }
+      .contact-left{
+        width: 226px;
+        margin-right: 40px;
+      }
     }
   }
 </style>

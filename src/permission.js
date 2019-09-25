@@ -3,7 +3,7 @@ import store from './store'
 import {getToken} from "@/utils/token";
 import { Message } from 'element-ui'
 
-const whiteList = ['/login'];
+const whiteList = ['/login/','/','/hall_list/','/about','/about/','/introduction/'];
 
 // permission judge function
 // function hasPermission(roles, permissionRoles) {
@@ -57,12 +57,16 @@ router.beforeEach((to,from,next) =>{
     }
   }else{
 
-    if(whiteList.indexOf(to.path) != -1 ){ // 在免登录白名单，直接进入
+    let url = to.path;
+    if(url[url.length-1] != '/'){
+      url = url+'/';
+    }
+    console.log(url);
+    if(whiteList.indexOf(url) != -1 ){ // 在免登录白名单，直接进入
       next();
     }else{
       // 全部重定向到登录页
-      // next(`/login?redirect=${to.path}`);
-      next(`/login?redirect=${to.path}`);
+      next(`/login?redirect=${url}`);
     }
   }
 

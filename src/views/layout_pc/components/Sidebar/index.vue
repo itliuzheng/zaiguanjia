@@ -4,7 +4,7 @@
     <div class="header-contact clearfix">
       <div class="contact-main">
         <p class="fl">债管家 您身边的智能化资产处置平台</p>
-        <p class="fr header-btn">联系我们</p>
+        <router-link class="fr header-btn" :to="{name:'about',query:{name:'contact'}}">联系我们</router-link>
       </div>
     </div>
     <div class="header clearfix" >
@@ -40,19 +40,19 @@
             }
           },
           {
-            redirect:'/',
+            redirect:'/introduction/',
             meta:{
               title:'业务介绍'
             }
           },
           {
-            redirect:'/',
+            redirect:'/hall_list/',
             meta:{
               title:'交易大厅'
             }
           },
           {
-            redirect:'/',
+            redirect:'/about/',
             meta:{
               title:'关于我们'
             }
@@ -140,6 +140,13 @@
         -webkit-border-radius: 2px;
         -moz-border-radius: 2px;
         border-radius: 2px;
+        cursor: pointer;
+        &:hover{
+          background: #5fded2;
+        }
+        &:active{
+          background: #31b2a6;
+        }
       }
     }
   }
