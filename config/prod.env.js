@@ -3,7 +3,7 @@ var buildtype = process.argv.slice(2)[0];
 
 var obj = {
   NODE_ENV: '"production"',
-  BASE_API:'"http://119.147.171.108/logisticsFinance"'
+  BASE_API:'"http://192.168.11.121"'
 }
 
 switch(buildtype){
@@ -14,7 +14,7 @@ switch(buildtype){
   case 'test'://测试
     process.argv.srconfig = 'test';
     obj.srconfig = '"test"';
-    obj.BASE_API = '"http://119.147.171.111:81/logisticsFinance"';
+    obj.BASE_API = '"http://192.168.11.121"';
     break;
   default://默认
     process.argv.srconfig = 'pro';
