@@ -175,7 +175,7 @@
       line-height: 1;
     }
     .desc{
-      margin-bottom: 38px;
+      margin-bottom: 28px;
       .desc-chinese{
         font-size: 14px;
         line-height: 1;
