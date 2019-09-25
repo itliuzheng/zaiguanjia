@@ -27,7 +27,7 @@
               required: true, message: '此项不能为空', trigger: 'change'
             }">
           <el-select v-model="dialogForm.type"  placeholder="请选择">
-            <el-option :label="list.label" :value="list.value" v-for="(list,index) in typeList" :key="index"></el-option>
+            <el-option :label="list.val" :value="list.key" v-for="(list,index) in typeList" :key="index"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="债务人所属区域:"
@@ -36,7 +36,7 @@
               required: true, message: '此项不能为空', trigger: 'blur'
             }">
           <el-select multiple  v-model="dialogForm.areas"  placeholder="请选择">
-            <el-option :label="list.name" :value="list.name" v-for="(list,index) in areaList" :key="index"></el-option>
+            <el-option :label="list.val" :value="list.key" v-for="(list,index) in areaList" :key="index"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="资产来源:"
@@ -99,24 +99,7 @@
         formLabelWidth: '180px',
         financeOrgList:[],
         productList:[],
-        typeList:[
-              {
-                label:'消费分期',
-                value:1
-              },
-              {
-                label:'信用贷款',
-                value:2
-              },
-              {
-                label:'车辆质押',
-                value:3
-              },
-              {
-                label:'房产抵押',
-                value:4
-              },
-        ],
+        typeList:[],
         collectionList:[
         ],
         unilateralList:[
@@ -125,6 +108,7 @@
       }
     },
     beforeMount:function(){
+      this.getType();
       this.getCity();
       this.getUnilateral();
       this.getCollection();
@@ -134,8 +118,57 @@
       }
     },
     methods: {
+      getType:function(){
+        var _this = this;
+
+        let url = `/sys/sys-dict/getDictList`;
+        new Promise((resolve,reject) => {
+          ajax({
+            url:url,
+            method:'post',
+            data:{
+              name:'loanType',
+            }
+          }).then(function (res) {
+            let data = res.data;
+            if(data.code == 1){
+              if(data.data){
+                _this.typeList = data.data.records;
+              }
+            }else{
+              _this.$message.error(data.msg);
+            }
+
+          }).catch(error => {
+            reject(error)
+          })
+         })
+      },
       getCity:function(){
-        this.areaList = reconstructionCode(china_json);
+        var _this = this;
+
+        let url = `/sys/sys-dict/getDictList`;
+        new Promise((resolve,reject) => {
+          ajax({
+            url:url,
+            method:'post',
+            data:{
+              name:'loanArea',
+            }
+          }).then(function (res) {
+            let data = res.data;
+            if(data.code == 1){
+              if(data.data){
+                _this.areaList = data.data.records;
+              }
+            }else{
+              _this.$message.error(data.msg);
+            }
+
+          }).catch(error => {
+            reject(error)
+          })
+         })
       },
       getInit(id){
         var _this = this;

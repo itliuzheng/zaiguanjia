@@ -13,11 +13,8 @@
           <el-form-item label="资产类型" class="width-3">
 
             <el-select v-model="management.type" placeholder="请选择" style="width: 100px;">
-              <el-option label="全部"   :value="0"></el-option>
-              <el-option label="消费分期" :value="1"></el-option>
-              <el-option label="信用贷款" :value="2"></el-option>
-              <el-option label="车辆质押" :value="3"></el-option>
-              <el-option label="房产抵押" :value="4"></el-option>
+              <el-option label="全部"   :value="-1"></el-option>
+              <el-option v-for="list in typeList" :label="list.val" :value="list.key"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="资产来源" >
@@ -27,8 +24,8 @@
           <el-form-item label="债务人所属区域"  class="width-3">
 
             <el-select v-model="management.area" multiple placeholder="请选择" style="width: 100px;">
-              <el-option label="全部"   :value="0"></el-option>
-              <el-option label="消费分期" :value="1"></el-option>
+              <el-option label="全部"   :value="-1"></el-option>
+              <el-option v-for="list in areaList" :label="list.val" :value="list.key"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="创建时间:" >
@@ -72,10 +69,7 @@
         <el-table-column
           label="资产类型">
           <template slot-scope="scope">
-            <p  v-if="scope.row.type == 1">消费分期</p>
-            <p  v-else-if="scope.row.type == 2">信用贷款</p>
-            <p  v-else-if="scope.row.type == 3">车辆质押</p>
-            <p  v-else-if="scope.row.type == 4">房产抵押</p>
+            <p v-for="list in typeList"  v-if="scope.row.type == list.key">{{list.val}}</p>
           </template>
         </el-table-column>
         <el-table-column
@@ -151,6 +145,8 @@
           ],
           "total":0
         },
+        typeList:[],
+        areaList:[],
         management:{
           "code": "",
           "entrustName": "",
@@ -168,9 +164,63 @@
     },
     beforeMount:function(){
 
+      this.getType();
+      this.getCity();
       this.ajaxPage(1);
     },
     methods:{
+      getType:function(){
+        var _this = this;
+
+        let url = `/sys/sys-dict/getDictList`;
+        new Promise((resolve,reject) => {
+          ajax({
+            url:url,
+            method:'post',
+            data:{
+              name:'loanType',
+            }
+          }).then(function (res) {
+            let data = res.data;
+            if(data.code == 1){
+              if(data.data){
+                _this.typeList = data.data.records;
+              }
+            }else{
+              _this.$message.error(data.msg);
+            }
+
+          }).catch(error => {
+            reject(error)
+          })
+         })
+      },
+      getCity:function(){
+        var _this = this;
+
+        let url = `/sys/sys-dict/getDictList`;
+        new Promise((resolve,reject) => {
+          ajax({
+            url:url,
+            method:'post',
+            data:{
+              name:'loanArea',
+            }
+          }).then(function (res) {
+            let data = res.data;
+            if(data.code == 1){
+              if(data.data){
+                _this.areaList = data.data.records;
+              }
+            }else{
+              _this.$message.error(data.msg);
+            }
+
+          }).catch(error => {
+            reject(error)
+          })
+         })
+      },
       showEdit(row){
         this.$router.push({name:'bill-info-id',params:{id:row.id}});
       },

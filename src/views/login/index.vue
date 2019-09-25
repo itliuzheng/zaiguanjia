@@ -110,7 +110,7 @@
 
             _this.$store.dispatch('LoginByUsername',_this.loginForm).then(()=>{
               _this.loading = false;
-              _this.$router.push({path:_this.redirect||'/'});
+              _this.$router.push({path:_this.redirect||'/_admin'});
             }).catch((error)=>{
               _this.loading = false;
               _this.error = true;

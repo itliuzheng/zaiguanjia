@@ -11,17 +11,13 @@
 
             <el-select v-model="management.type" placeholder="请选择" style="width: 100px;">
               <el-option label="全部"   :value="-1"></el-option>
-              <el-option label="委单方" :value="1"></el-option>
-              <el-option label="催收方" :value="2"></el-option>
-              <el-option label="其他"   :value="3"></el-option>
+              <el-option v-for="list in cooperateTypeList" :label="list.val" :value="list.key"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="合作商类别:" class="width-3">
             <el-select v-model="management.category" placeholder="请选择"  style="width:100px">
               <el-option label="全部" :value="-1"></el-option>
-              <el-option label="企业" :value="1"></el-option>
-              <el-option label="个人" :value="2"></el-option>
-              <el-option label="其他" :value="3"></el-option>
+              <el-option v-for="list in cooperateCategoryList" :label="list.val" :value="list.key"></el-option>
             </el-select>
           </el-form-item>
 
@@ -150,13 +146,69 @@
         loading:false,
         dialogFormVisible:false,
         dialogForm:null,
+        cooperateTypeList:[],
+        cooperateCategoryList:[],
       }
     },
     beforeMount:function(){
 
+      this.getCooperateType();
+      this.getCooperateCategory();
       this.ajaxPage(1);
     },
     methods:{
+      getCooperateType:function(){
+        var _this = this;
+
+        let url = `/sys/sys-dict/getDictList`;
+        new Promise((resolve,reject) => {
+          ajax({
+            url:url,
+            method:'post',
+            data:{
+              name:'cooperateType',
+            }
+          }).then(function (res) {
+            let data = res.data;
+            if(data.code == 1){
+              if(data.data){
+                _this.cooperateTypeList = data.data.records;
+              }
+            }else{
+              _this.$message.error(data.msg);
+            }
+
+          }).catch(error => {
+            reject(error)
+          })
+         })
+      },
+      getCooperateCategory:function(){
+        var _this = this;
+
+        let url = `/sys/sys-dict/getDictList`;
+        new Promise((resolve,reject) => {
+          ajax({
+            url:url,
+            method:'post',
+            data:{
+              name:'cooperateCategory',
+            }
+          }).then(function (res) {
+            let data = res.data;
+            if(data.code == 1){
+              if(data.data){
+                _this.cooperateCategoryList = data.data.records;
+              }
+            }else{
+              _this.$message.error(data.msg);
+            }
+
+          }).catch(error => {
+            reject(error)
+          })
+         })
+      },
       addEdit(){
         this.dialogForm = {};
         this.dialogForm.types = 'add';
