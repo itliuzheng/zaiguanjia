@@ -62,18 +62,13 @@
         <el-table-column
           label="合作商类别">
           <template slot-scope="scope">
-            <p  v-if="scope.row.type == 0">后台用户</p>
-            <p  v-else-if="scope.row.type == 1">委单方</p>
-            <p  v-else-if="scope.row.type == 2">催收方</p>
-            <p  v-else-if="scope.row.type == 3">其他</p>
+            <p v-for="list in cooperateTypeList"  v-if="scope.row.type == list.key">{{list.val}}</p>
           </template>
         </el-table-column>
         <el-table-column
           label="合作类型">
           <template slot-scope="scope">
-            <p  v-if="scope.row.category == 1">企业</p>
-            <p  v-else-if="scope.row.category == 2">个人</p>
-            <p  v-else-if="scope.row.category == 3">其他</p>
+            <p v-for="list in cooperateCategoryList"  v-if="scope.row.category == list.key">{{list.val}}</p>
           </template>
         </el-table-column>
         <el-table-column
@@ -136,9 +131,9 @@
           "total":0
         },
         management:{
-          type:'',
+          types:-1,
           loginName:'',
-          category:'',
+          category:-1,
           createDate:'',
           beginDate:'',
           endDate:'',
@@ -272,8 +267,8 @@
       },
       inquireClear(){
         this.management.loginName = '';
-        this.management.type = '';
-        this.management.category = '';
+        this.management.types = -1;
+        this.management.category = -1;
         this.management.createDate = '';
         this.management.beginDate = '';
         this.management.endDate = '';
@@ -292,7 +287,7 @@
 
         let date = {
               loginName:_this.management.loginName,
-              type:_this.management.type,
+              types:_this.management.types,
               category:_this.management.category,
               beginDate:_this.management.beginDate,
               endDate:_this.management.endDate,
