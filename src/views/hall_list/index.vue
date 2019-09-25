@@ -37,7 +37,7 @@
         <li v-for="(list,index) in page.records" :key="index">
           <div class="address fl" :class="list.status == 2?'address-disabled':''">
             <i class="active-address"></i>
-            <span>北京</span>
+            <span>{{list.area}}</span>
           </div>
           <div class="fl list-content">
             <p class="code">资产编号：123123123</p>

@@ -9,7 +9,7 @@
 
           <el-form-item label="合作类型" class="width-3">
 
-            <el-select v-model="management.type" placeholder="请选择" style="width: 100px;">
+            <el-select v-model="management.types" placeholder="请选择" style="width: 100px;">
               <el-option label="全部"   :value="-1"></el-option>
               <el-option v-for="list in cooperateTypeList" :label="list.val" :value="list.key"></el-option>
             </el-select>
