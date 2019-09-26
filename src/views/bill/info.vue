@@ -36,7 +36,7 @@
               required: true, message: '此项不能为空', trigger: 'blur'
             }">
           <el-select multiple  v-model="dialogForm.areas"  placeholder="请选择">
-            <el-option :label="list.val" :value="list.key" v-for="(list,index) in areaList" :key="index"></el-option>
+            <el-option :label="list.val" :value="list.val" v-for="(list,index) in areaList" :key="index"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="资产来源:"

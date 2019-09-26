@@ -11,13 +11,13 @@
 
             <el-select v-model="management.types" placeholder="请选择" style="width: 100px;">
               <el-option label="全部"   :value="-1"></el-option>
-              <el-option v-for="list in cooperateTypeList" :label="list.val" :value="list.key"></el-option>
+              <el-option v-for="list in cooperateTypeList" :label="list.val" :value="list.key" :key="list.key"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="合作商类别:" class="width-3">
             <el-select v-model="management.category" placeholder="请选择"  style="width:100px">
               <el-option label="全部" :value="-1"></el-option>
-              <el-option v-for="list in cooperateCategoryList" :label="list.val" :value="list.key"></el-option>
+              <el-option v-for="list in cooperateCategoryList" :label="list.val" :value="list.key" :key="list.key"></el-option>
             </el-select>
           </el-form-item>
 
