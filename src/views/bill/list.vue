@@ -25,7 +25,7 @@
 
             <el-select v-model="management.area" multiple placeholder="请选择" style="width: 100px;">
               <el-option label="全部"   :value="-1"></el-option>
-              <el-option v-for="list in areaList" :label="list.val" :value="list.key" :key="list.key"></el-option>
+              <el-option v-for="list in areaList" :label="list.val" :value="list.val" :key="list.key"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="创建时间:" >

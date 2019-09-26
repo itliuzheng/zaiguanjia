@@ -19,7 +19,7 @@ router.beforeEach((to,from,next) =>{
 
   if(token){
     if(to.path === '/login'){
-      next({path:'/'});
+      next({path:'/_admin'});
     }else{
 
       // next()
@@ -35,7 +35,7 @@ router.beforeEach((to,from,next) =>{
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
             Message.error('Verification failed, please login again');
-            next({ path: `/`})
+            next({ path: `/_admin`})
           })
         })
 
