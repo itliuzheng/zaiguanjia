@@ -53,17 +53,30 @@ orci ut et lobortis aliquam. Aliquam in tortor enim.</p>
       </div>
       <div class="company" v-if="activeName == 'contact'">
 
-        <div class="about-header">
+        <div class="about-header about-header-contact">
         </div>
         <div class="company-content">
           <h3 class="company-title">
             联系我们
           </h3>
           <p class="english-desc">CONTACT US</p>
-          <img class="company-banner" src="@/images/about/banner.jpg" alt="">
-          <div class="company-desc">
-
-            <p>以下为测试文字 </p>
+          <div class="contact-info clearfix">
+            <div class="icon fl"><img src="@/images/about/contact/lian.jpg" alt=""></div>
+            <div class="info-desc fl">
+              <p class="info-title">北京总部</p>
+              <p class="info-title-english">BEIJING HEADQUARTERS</p>
+              <ul class="info-ul">
+                <li>北京总部：北京市 朝阳区 建外三百六十二号大街世贸商务楼2688室</li>
+                <li>联系电话：+86 10 69887650</li>
+                <li>总部电话：+86 10 69887650</li>
+                <li>电子邮箱：website@webs.com</li>
+                <li>邮政编码：100024</li>
+              </ul>
+            </div>
+          </div>
+          <div class="company-contact-desc">
+            <p class="chinese">债管家秉承共同发展的理念，鼓励客户一起共谋互联网民间借贷的未来，共同努力，共享发展成功————这是我们共同的债管家</p>
+            <p class="english"></p>
           </div>
         </div>
 
@@ -150,11 +163,15 @@ orci ut et lobortis aliquam. Aliquam in tortor enim.</p>
   }
 
   .company{
+    position: relative;
+    width: 100%;
+    min-height: 684px;
     .about-header{
       background: url("~@/images/about/header.jpg") no-repeat center;
-      width: 1980px;
+      width: 1920px;
       height: 684px;
-      position: relative;
+      position: absolute;
+      z-index: 1;
       left: 50%;
       top: 0;
       -webkit-transform: translate(-50%, 0);
@@ -164,19 +181,18 @@ orci ut et lobortis aliquam. Aliquam in tortor enim.</p>
       transform: translate(-50%, 0);
       -webkit-background-size: auto 100%;
       background-size: auto 100%;
-      img{
-        width: 1980px;
-        position: absolute;
-        left: 50%;
-        top: 0;
-        margin-left: -990px;
-      }
+    }
+    .about-header-contact{
+      background: url("~@/images/about/contact/bg.jpg") no-repeat center;
+      height: 600px;
     }
     .company-content{
       width: 1200px;
       background: #ffffff;
       position: relative;
-      top: -404px;
+      z-index: 2;
+      top: 280px;
+      padding-bottom: 320px;
       .company-title{
         color: #333;
         font-size: 32px;
@@ -206,6 +222,52 @@ orci ut et lobortis aliquam. Aliquam in tortor enim.</p>
       p{
         margin-bottom: 19px;
       }
+    }
+    .contact-info{
+      padding: 0 52px;
+      .icon{
+        margin-right: -100%;
+      }
+      .info-desc{
+        padding-left: 602px;
+        padding-top:57px;
+        text-align: left;
+        .info-title{
+          color: #333;
+          font-size: 22px;
+
+        }
+        .info-title-english{
+          color: #adadad;
+          font-size: 7px;
+          line-height: 1;
+          margin-bottom: 38px;
+        }
+        .info-ul{
+          text-align: left;
+          li{
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 16px;
+            line-height: 1;
+          }
+        }
+      }
+    }
+    .company-contact-desc{
+      margin-top: 71px;
+      text-align: left;
+      padding: 0 52px;
+      .chinese{
+        color: #333;
+        font-size: 16px;
+        line-height: 26px;
+      }
+      .english{
+        color: #c4c4c4;
+        font-size: 8px;
+      }
+
     }
   }
 
