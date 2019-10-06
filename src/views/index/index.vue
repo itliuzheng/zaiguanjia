@@ -12,7 +12,7 @@
       <h3 class="title">债管家-专业资产处置领导者</h3>
       <h4 class="title-english">DEBT MANAGER - LEADER OF PROFESSIONAL ASSET DISPOSAL</h4>
       <div class="desc">
-        <p class="desc-chinese">债管家资产以快捷、简单、安全为己任，为客户提供正规、合法、可视化的催收资产服务、光哭的覆盖范围，让不良资产再无死角。</p>
+        <p class="desc-chinese">债管家资产以快捷、简单、安全为己任，为客户提供正规、合法、可视化的催收资产服务、广阔的覆盖范围，让不良资产再无死角。</p>
         <p class="desc-english">Debt housekeeper assets take fast, simple and safe as their responsibility, providing customers with formal, legal and visual asset collection services, the coverage of crying, so that non-performing assets no longer have dead ends.</p>
       </div>
       <ul class="home-icon">

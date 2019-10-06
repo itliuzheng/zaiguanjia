@@ -8,9 +8,9 @@
         <div class="company-content">
           <img class="company-liucheng" src="@/images/introduction/liucheng.png" alt="">
           <ul class="liucheng-desc">
-            <li>债券审核</li>
-            <li>司法诉讼</li>
-            <li>法院立案</li>
+            <li>债权审核</li>
+            <li>司法诉讼&nbsp;&nbsp;</li>
+            <li>&nbsp;&nbsp;&nbsp;法院立案</li>
             <li>执行回款</li>
           </ul>
           <img class="company-banner" src="@/images/introduction/banner.jpg" alt="">
@@ -24,7 +24,8 @@
                 <p class="text">债权登记系统实现个人或机构对自有债权进行登记，进行智能化管理，其中包括借贷合同的数字存证，用区块链技术实现不可篡改和隐私安全保护，充分便 捷安全地保障债权人实现安全高效私密地债权登记管理。</p>
               </div>
             </li>
-            <li class="li-right">
+<!--            <li class="li-right">-->
+            <li>
               <div class="icon">
                 <img src="@/images/introduction/icon-02.png" alt="">
               </div>
@@ -42,7 +43,7 @@
                 <p class="text">贷后管理催收系统分为线上催收和线下催收。线上催收根据借贷合同或借条约定的付本息时间进行自动短信催收和电话催收。线下催收服务包括上门进行告知催收及进行司法程序全流程代理，方便高效地完成债权起诉、查封保全资产、执行回款的全流程委托代办。</p>
               </div>
             </li>
-            <li class="li-right">
+            <li>
               <div class="icon">
                 <img src="@/images/introduction/icon-04.png" alt="">
               </div>
