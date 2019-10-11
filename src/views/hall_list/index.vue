@@ -269,6 +269,7 @@
       .el-checkbox-button--mini .el-checkbox-button__inner{
         padding: 8px 18px;
         color: #333;
+        font-size: 16px;
       }
       .el-checkbox-button.is-checked .el-checkbox-button__inner{
         color: #fff;
@@ -399,7 +400,7 @@
           padding-left: 227px;
           width: 100%;
           .code{
-            font-size: 12px;
+            font-size: 14px;
             color: #9e9e9e;
             line-height: 1;
             padding-top: 6px;
@@ -409,7 +410,7 @@
           .list-type{
             display: inline-block;
             .type-name{
-              font-size: 12px;
+              font-size: 14px;
               color: #9e9e9e;
               line-height: 1;
               margin-bottom: 11px;

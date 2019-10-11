@@ -4,16 +4,20 @@
 
       <div class="company">
 
-        <div class="about-header"></div>
+        <div class="about-header">
+          <img src="@/images/introduction/banner_header.jpg" alt="">
+        </div>
+        <div class="company-content company-content-height">
+          <h3 class="company-title">债管家-专业资产处置领导者</h3>
+          <p class="english-desc">DEBTOR-PROFESSIONAL ASSET DISPOSAL LEADER</p>
+          <p class="sub-desc">债管家资产以快捷、简单、安全为己任，为客户提供正规、合法、可视化的催收资产服务、广阔的覆盖范围，让不良资产再无死角。</p>
+          <p class="english-sub-desc">Debt housekeeper assets take fast, simple and safe as their responsibility, providing customers with formal, legal and visual asset collection services, the coverage of crying, so that non-performing assets no longer have dead ends.</p>
+        </div>
+
         <div class="company-content">
-          <img class="company-liucheng" src="@/images/introduction/liucheng.png" alt="">
-          <ul class="liucheng-desc">
-            <li>债权审核</li>
-            <li>司法诉讼&nbsp;&nbsp;</li>
-            <li>&nbsp;&nbsp;&nbsp;法院立案</li>
-            <li>执行回款</li>
-          </ul>
-          <img class="company-banner" src="@/images/introduction/banner.jpg" alt="">
+          <div class="company-liucheng">
+            <img src="@/images/introduction/liucheng.jpg" alt="">
+          </div>
           <ul class="company-ul">
             <li>
               <div class="icon">
@@ -94,62 +98,67 @@
     width: 100%;
     min-height: 1024px;
     .about-header{
-      background: url("~@/images/introduction/introduction_bj.jpg") no-repeat center;
-      width: 1920px;
-      height: 1024px;
-      position: absolute;
-      z-index: 1;
-      left: 50%;
-      top: 0;
-      -webkit-transform: translate(-50%, 0);
-      -moz-transform: translate(-50%, 0);
-      -ms-transform: translate(-50%, 0);
-      -o-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
-      -webkit-background-size: auto 100%;
-      background-size: auto 100%;
+      position: relative;
+      height: 279px;
+      img{
+        position: absolute;
+        width: 1920px;
+        left: 50%;
+        top: 0;
+        -webkit-transform: translate(-50%, 0);
+        -moz-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+        -o-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+      }
     }
     .company-content{
       width: 1200px;
       background: #ffffff;
-      position: relative;
-      z-index: 2;
-      top: 280px;
-      padding-bottom: 320px;
       .company-title{
         color: #333;
-        font-size: 32px;
+        font-size: 46px;
         line-height: 1;
-        margin-bottom: 15px;
-        padding-top: 100px;
+        margin-bottom: 20px;
+        padding-top: 86px;
         font-weight: 500;
         letter-spacing: 2px;
       }
       .english-desc{
-        font-size: 8px;
-        color: #7a7a7a;
+        font-size: 12px;
+        color: #333;
         line-height: 1;
-        margin-bottom: 35px;
+        margin-bottom: 40px;
       }
+      .sub-desc{
+        font-size: 14px;
+        color: #333;
+      }
+      .english-sub-desc{
+        width: 600px;
+        margin: 0 auto;
+        font-size: 12px;
+        color: #c3c3c3;
+        line-height: 1;
+      }
+    }
+    .company-content-height{
+      height: 312px;
     }
     .company-liucheng{
-      width: 929px;
-      margin: 80px 0 18px;
-    }
-    .liucheng-desc{
-      width: 1120px;
-      margin: 0 auto 66px;
-      display: flex;
-      li{
-        display: inline-block;
-        font-size: 20px;
-        color: $green;
-        line-height: 1;
-        flex: 1;
+      position: relative;
+      height: 392px;
+      img{
+        position: absolute;
+        width: 1920px;
+        left: 50%;
+        top: 0;
+        -webkit-transform: translate(-50%, 0);
+        -moz-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+        -o-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
       }
-    }
-    .company-banner{
-      width: 1096px;
     }
     .company-ul{
       margin-top: 12px;
