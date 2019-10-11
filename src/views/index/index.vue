@@ -18,7 +18,32 @@
     <div class="section section-02">
       <h3 class="title">热标推荐</h3>
       <h4 class="title-english">HOT ASSET SOLUTIONS</h4>
+      <ul class="hot-box">
+        <li v-for="list in 3">
+          <p class="number">资产编号：3123123132</p>
+          <div class="type">
+            <div class="type-inline">
+              <p class="type-title">债权所在地</p>
+              <p class="type-desc">齐齐哈尔</p>
+            </div>
+            <div class="type-inline">
+              <p class="type-title">债权所在地</p>
+              <p class="type-desc">齐齐哈尔</p>
+            </div>
+            <div class="type-inline">
+              <p class="type-title">债权所在地</p>
+              <p class="type-desc">齐齐哈尔</p>
+            </div>
+          </div>
+          <div class="bid">
+            <p class="bid-title">标的金额</p>
+            <p class="bid-number">1,000,100.00元</p>
+          </div>
 
+          <div class="btn btn-hover" ><span></span>立即咨询</div>
+        </li>
+      </ul>
+      <router-link class="link" :to="{name:'hall_list'}">更多热门标的欢迎前往交易大厅 > </router-link>
     </div>
     <div class="section section-03">
       <h3 class="title">合作伙伴</h3>
@@ -78,6 +103,7 @@
 </style>
 <style lang="scss" scoped>
   $blue : #409EFF;
+  $green : #2fc0b2;
 
   .banner{
     position: relative;
@@ -150,7 +176,120 @@
       }
     }
 
+    .hot-box{
+      text-align: center;
+      margin-bottom: 68px;
+      li{
+        display: inline-block;
+        width: 368px;
+        height: 376px;
+        background: #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        margin-right: 48px;
+        font-size: 0;
+        vertical-align: top;
+        text-align: left;
+        padding: 28px 20px 0;
+        &:last-child{
+          margin-right: 0;
+        }
+        .number{
+          font-size: 14px;
+          color: #a5a5a5;
+          line-height: 1;
+          margin-bottom: 20px;
+        }
+        .type{
+          width: 100%;
+          -webkit-border-radius: 10px;
+          -moz-border-radius: 10px;
+          border-radius: 10px;
+          height: 68px;
+          color: #404040;
+          border: 1px solid #f3f3f3;
+          padding-top: 14px;
+          margin-bottom: 20px;
+          .type-inline{
+            width: 33%;
+            border-right: 1px solid #f3f3f3;
+            text-align: center;
+            line-height: 1;
+            display: inline-block;
+            font-size: 0;
+            vertical-align: top;
+            &:last-child{
+              border-right:none;
+            }
+            .type-title{
+              font-size: 14px;
+              margin-bottom: 8px;
+            }
+            .type-desc{
+              font-size: 18px;
+            }
+          }
+        }
+        .bid{
+          -webkit-border-radius: 10px;
+          -moz-border-radius: 10px;
+          border-radius: 10px;
+          background: #f3f3f3;
+          height: 128px;
+          text-align: center;
+          .bid-title{
+            font-size: 18px;
+            color: #a9a9a9;
+            line-height: 1;
+            padding: 30px 0 13px;
+          }
+          .bid-number{
+            color: #fe3c5c;
+            font-size: 36px;
+            font-weight: bold;
+            line-height: 1;
+          }
+        }
 
+        .btn{
+          width: 100%;
+          height: 56px;
+          line-height: 56px;
+          background: $green;
+          color: #fff;
+          text-align: center;
+          -webkit-border-radius: 4px;
+          -moz-border-radius: 4px;
+          border-radius: 4px;
+          margin:20px 30px 0 0;
+          cursor: pointer;
+          font-size: 22px;
+          span{
+            display: inline-block;
+            background: url("~@/images/record/zixun.png") no-repeat;
+            width: 32px;
+            height: 32px;
+            -webkit-background-size: 100%;
+            background-size: 100%;
+            vertical-align: middle;
+            margin-right: 7px;
+          }
+          &.btn-hover:hover{
+            background: #5fded2;
+          }
+          &.btn-hover:active{
+            background: #31b2a6;
+          }
+        }
+      }
+    }
+
+    .link{
+      font-size: 20px;
+      color: #b8b8b8;
+      cursor: pointer;
+    }
 
     .partners-box{
       width: 980px;
