@@ -40,7 +40,7 @@
             <span>{{list.area}}</span>
           </div>
           <div class="fl list-content">
-            <p class="code">资产编号：123123123</p>
+            <p class="code">资产编号：{{list.code}}</p>
             <div class="clearfix">
               <div class="fl">
                 <div class="list-type">
@@ -59,7 +59,7 @@
                   <img  v-if="list.status == 2" src="@/images/record/compend.png" alt="">
                 </div>
               </div>
-              <div class="fr btn btn-hover" v-if="list.status == 1"><span></span>立即咨询</div>
+              <div class="fr btn btn-hover" v-if="list.status == 1"><span></span>了解详情</div>
               <div class="fr btn btn-disabled"  v-else-if="list.status == 2">已成交</div>
             </div>
           </div>
@@ -105,7 +105,6 @@
           type:[-1],
         },
         loanType:null,
-
       }
     },
     beforeMount:function(){

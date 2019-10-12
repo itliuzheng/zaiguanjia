@@ -19,28 +19,32 @@
       <h3 class="title">热标推荐</h3>
       <h4 class="title-english">HOT ASSET SOLUTIONS</h4>
       <ul class="hot-box">
-        <li v-for="list in 3">
-          <p class="number">资产编号：3123123132</p>
+        <li v-for="list in page.records">
+          <p class="number">资产编号：{{list.code}}</p>
           <div class="type">
             <div class="type-inline">
               <p class="type-title">债权所在地</p>
-              <p class="type-desc">齐齐哈尔</p>
+              <p class="type-desc">{{list.area}}</p>
             </div>
             <div class="type-inline">
-              <p class="type-title">债权所在地</p>
-              <p class="type-desc">齐齐哈尔</p>
+              <p class="type-title">资产类型</p>
+              <p class="type-desc">
+                <span v-for="(item,index) in loanType" :key="index" v-if="list.type == item.key">{{item.val}}</span>
+              </p>
             </div>
             <div class="type-inline">
-              <p class="type-title">债权所在地</p>
-              <p class="type-desc">齐齐哈尔</p>
+              <p class="type-title">资产来源</p>
+              <p class="type-desc">{{list.source}}</p>
             </div>
           </div>
           <div class="bid">
             <p class="bid-title">标的金额</p>
-            <p class="bid-number">1,000,100.00元</p>
+            <p class="bid-number">{{list.amount | toThousands}}元</p>
           </div>
 
-          <div class="btn btn-hover" ><span></span>立即咨询</div>
+          <router-link class="link" :to="{name:'hall_list'}"><div class="btn btn-hover" ><span></span>了解详情</div></router-link>
+
+
         </li>
       </ul>
       <router-link class="link" :to="{name:'hall_list'}">更多热门标的欢迎前往交易大厅 > </router-link>
@@ -62,6 +66,17 @@
   export default {
     data(){
       return {
+        api:'/loan/loan/',
+        type_api:'/sys/sys-dict/getDictList',
+        page:{
+          "current":1,
+          "pageSize":10,
+          "pages":1,
+          "records":[
+          ],
+          "total":0
+        },
+        loanType:null,
         partnerList:[
           {
             src:require('@/images/home/partner/logo-01.png')
@@ -91,9 +106,91 @@
       }
     },
     beforeMount:function(){
+
+      this.getInit();
+      this.ajaxPage(1);
     },
     methods: {
+      getInit:function () {
+        let url = `${this.type_api}`;
+        var _this = this;
+
+        new Promise((resolve,reject) => {
+          ajax({
+            url:url,
+            method:'post',
+            data:{
+              name:'loanType'
+            }
+          }).then(function (res) {
+            let data = res.data;
+            if(data.code == 1){
+              if(data.data){
+                let list = data.data.records;
+                list.unshift({
+                  key:-1,
+                  val:'全部'
+                });
+                _this.loanType = data.data.records;
+              }
+            }else{
+              _this.$message.error(data.msg);
+            }
+
+          }).catch(error => {
+            reject(error)
+          })
+         })
+      },
+      ajaxPage:function (page = 1 ) {
+        let url = `${this.api}page`;
+        var _this = this;
+
+        let date = {
+              pageNum:page,
+              pageSize:3,
+              status:1
+        };
+
+        new Promise((resolve,reject) => {
+          ajax({
+            url:url,
+            method:'post',
+            data:date
+          }).then(function (res) {
+            let data = res.data;
+            if(data.code == 1){
+              if(data.data){
+                _this.page = data.data;
+              }
+            }else{
+              _this.$message.error(data.msg);
+            }
+
+          }).catch(error => {
+            reject(error)
+          })
+         })
+      },
     },
+    filters:{
+
+      toThousands(row){
+        console.log(row);
+        row = row+'';
+        let pointNum = row.split('.')[1]||'00',
+            num = row.split('.')[0],
+            result = '';
+        while (num.length > 3) {
+            result = ',' + num.slice(-3) + result;
+            num = num.slice(0, num.length - 3);
+        }
+        if (num) { result = num + result; }
+
+        return result + '.'+pointNum;
+
+      },
+    }
   }
 </script>
 <style lang="scss">
