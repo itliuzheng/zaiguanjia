@@ -13,12 +13,12 @@
       </div>
       <div class="fr contact">
         <div>
-          <span class="contact-left">咨询电话：+86 10 69887650</span>
+          <span class="contact-left">咨询电话：010 69887650</span>
           <span >工作时间：9:30 - 18:00(工作日)</span>
         </div>
         <div>
           <span  class="contact-left">商务合作：website@webs.com</span>
-          <span >公司地址：北京市 朝阳区 建外三百六十二号4层</span>
+          <span >公司地址：北京市朝阳区建外三百六十二号4层</span>
         </div>
       </div>
     </div>
@@ -60,7 +60,6 @@ export default {
       padding-top: 95px;
       position: relative;
       .fo-left{
-        margin-right: 74px;
         text-align: left;
       }
       .fo-about{
@@ -92,6 +91,7 @@ export default {
       color: #fff;
       span{
         display: inline-block;
+        float: left;
         text-align: left;
         margin-bottom: 22px;
         font-size: 18px;
@@ -99,8 +99,8 @@ export default {
 
       }
       .contact-left{
-        width: 226px;
-        margin-right: 40px;
+        width: 260px;
+        float: left;
       }
     }
   }
