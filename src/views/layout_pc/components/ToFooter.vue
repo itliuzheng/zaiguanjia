@@ -8,17 +8,17 @@
           <router-link tag="a" :to="{name:'about',query:{name:'contact'}}">联系我们</router-link>
         </div>
         <div class="fo-copyright">
-          <p>Copyright 2019 北京债管家网络科技有限公司  |  京ICP备18473254号</p>
+          <p>Copyright 2019 北京债管家网络科技有限公司  |  京ICP备19047367号-1</p>
         </div>
       </div>
       <div class="fr contact">
         <div>
-          <span class="contact-left">咨询电话：010-00000000</span>
+          <span class="contact-left">咨询电话：+86 10 69887650</span>
           <span >工作时间：9:30 - 18:00(工作日)</span>
         </div>
         <div>
-          <span  class="contact-left">商务合作：XXXX@.com</span>
-          <span >公司地址：xxxxxxxxxxxxxxxxxx</span>
+          <span  class="contact-left">商务合作：website@webs.com</span>
+          <span >公司地址：北京市 朝阳区 建外三百六十二号4层</span>
         </div>
       </div>
     </div>
