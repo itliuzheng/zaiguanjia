@@ -13,30 +13,10 @@ Vue.use(Router)
 
 
 export const constantRouterMap = [
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: '/redirect/:path*',
-        // component: () => import('@/views/redirect/index')
-        component: resolve => require(['@/views/redirect/index'],resolve)
-      }
-    ],
-    meta: { title: '后台管理-登录' }
-  },
-  {
-    path: '/login',
-    // component: () => import('@/views/login/index'),
-    component: resolve => require(['@/views/login/index'],resolve),
-    hidden: true
-  },
   //债管家
   {
     path: '/',
     component: layout,
-    name: 'index',
     redirect: '/',
     alwaysShow: true, // will always show the root menu
     hidden:true,
@@ -138,97 +118,4 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  //合作商管理
-  {
-    path: '/_admin',
-    component: Layout,
-    name: 'home',
-    redirect: '/_admin',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '合作商管理',
-      noCache: true ,
-      roles:'/'
-    },
-    children: [
-      {
-        path: '',
-        component: resolve => require(['@/views/partner/list'],resolve),
-        name: 'partner-list',
-        // alwaysShow: true, // will always show the root menu
-        meta: {
-          title: '合作商列表', noCache: true,
-          roles:'/home'
-        },
-      },
-    ]
-  },
-  //委单管理
-  {
-    path: '/_admin/bill',
-    component: Layout,
-    redirect: '/_admin/bill/list',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '委单管理',
-      noCache: true ,
-      roles:'/bill'
-    },
-    children: [
-      {
-        path: 'info',
-        component: resolve => require(['@/views/bill/info'],resolve),
-        name: 'bill-info',
-        // alwaysShow: true, // will always show the root menu
-        meta: {
-          title: '委单发布', noCache: true,
-          roles:'/bill/info'
-        },
-      },
-      {
-        path: 'list',
-        component: resolve => require(['@/views/bill/list'],resolve),
-        name: 'bill-list',
-        // alwaysShow: true, // will always show the root menu
-        meta: {
-          title: '委单列表', noCache: true,
-          roles:'/bill/list'
-        },
-      },
-      {
-        path: 'modify/:id',
-        component: resolve => require(['@/views/bill/info'],resolve),
-        name: 'bill-info-id',
-        hidden:true,
-        // alwaysShow: true, // will always show the root menu
-        meta: {
-          title: '委单发布', noCache: true,
-          roles:'/bill/info'
-        },
-      },
-    ]
-  },
-  // 系统管理
-  {
-    path: '/_admin/system',
-    component: Layout,
-    redirect: '/system/set',
-    alwaysShow: true, // will always show the root menu
-    meta: {
-      title: '系统管理',
-      noCache: true ,
-      roles:'/system'
-    },
-    children: [
-      {
-        path: 'set',
-        component: resolve => require(['@/views/system/set'],resolve),
-        name: 'set',
-        meta: {
-          title: '权限设置',
-          roles: '/system/set'
-        }
-      }
-    ]
-  },
 ]

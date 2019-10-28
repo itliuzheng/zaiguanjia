@@ -176,7 +176,6 @@
     filters:{
 
       toThousands(row){
-        console.log(row);
         row = row+'';
         let pointNum = row.split('.')[1]||'00',
             num = row.split('.')[0],
